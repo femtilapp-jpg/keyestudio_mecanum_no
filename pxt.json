@@ -7,7 +7,14 @@
         "microphone": "*"
     },
     "files": [
-        "core.ts"
+        "core.ts",
+        "drive.ts",
+        "mecanum.ts",
+        "sensors.ts",
+        "bluetooth.ts",
+        "lights.ts",
+        "autopilot.ts",
+        "advanced.ts"
     ],
     "public": true,
     "targetVersions": {
