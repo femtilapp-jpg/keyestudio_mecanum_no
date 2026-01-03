@@ -1,5 +1,5 @@
 {
-    "name": "keyestudio_mecanum_pro_nb",
+    "name": "keyestudio_mecanum_no",
     "version": "0.1.1",
     "description": "Barnevennlige norske MakeCode blokker for Keyestudio 4WD Mecanum robot",
     "dependencies": {
@@ -10,7 +10,8 @@
     },
     "files": [
         "core.ts",
-        "drive.ts"
+        "drive.ts",
+        "README.md"
     ],
     "public": true,
     "targetVersions": {
