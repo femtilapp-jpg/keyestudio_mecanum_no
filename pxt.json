@@ -11,7 +11,7 @@
     "files": [
         "core.ts",
         "drive.ts",
-        "mecanum.ts",
+        "ir.ts",
         "sensors.ts",
         "bluetooth.ts",
         "lights.ts",
