@@ -1,20 +1,15 @@
 {
-    "name": "keyestudio_mecanum_no",
-    "description": "",
+    "name": "keyestudio_mecanum_pro_nb",
+    "version": "0.0.1",
+    "description": "Barnevennlige norske MakeCode blokker for Keyestudio 4WD Mecanum robot",
     "dependencies": {
         "core": "*",
-        "radio": "*",
         "microphone": "*"
     },
     "files": [
-        "main.blocks",
-        "main.ts",
-        "README.md",
         "core.ts"
     ],
-    "testFiles": [
-        "test.ts"
-    ],
+    "public": true,
     "targetVersions": {
         "target": "8.0.18",
         "targetId": "microbit"
