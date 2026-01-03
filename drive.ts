@@ -1,5 +1,4 @@
-//% color=190 weight=95 icon="\uf1b9" block="Kjøring"
-namespace keyestudioDrive {
+namespace keyestudioPro {
 
     let speedLF = 50
     let speedLB = 50
@@ -25,6 +24,7 @@ namespace keyestudioDrive {
      */
     //% block="sett standardfart %fart"
     //% fart.min=0 fart.max=100 fart.defl=50
+    //% group="Kjøring"
     export function setStandardFart(fart: number): void {
         setAll(fart)
     }
@@ -34,6 +34,7 @@ namespace keyestudioDrive {
      */
     //% block="kjør framover med fart %fart"
     //% fart.min=0 fart.max=100 fart.defl=60
+    //% group="Kjøring"
     export function framover(fart: number): void {
         setAll(fart)
         mecanumRobotV2.Motor(LR.Upper_left, MD.Forward, speedLF)
@@ -47,6 +48,7 @@ namespace keyestudioDrive {
      */
     //% block="kjør bakover med fart %fart"
     //% fart.min=0 fart.max=100 fart.defl=60
+    //% group="Kjøring"
     export function bakover(fart: number): void {
         setAll(fart)
         mecanumRobotV2.Motor(LR.Upper_left, MD.Back, speedLF)
@@ -60,6 +62,7 @@ namespace keyestudioDrive {
      */
     //% block="snu venstre med fart %fart"
     //% fart.min=0 fart.max=100 fart.defl=60
+    //% group="Kjøring"
     export function snuVenstre(fart: number): void {
         setAll(fart)
         mecanumRobotV2.Motor(LR.Upper_left, MD.Back, speedLF)
@@ -73,6 +76,7 @@ namespace keyestudioDrive {
      */
     //% block="snu høyre med fart %fart"
     //% fart.min=0 fart.max=100 fart.defl=60
+    //% group="Kjøring"
     export function snuHoyre(fart: number): void {
         setAll(fart)
         mecanumRobotV2.Motor(LR.Upper_left, MD.Forward, speedLF)
@@ -85,6 +89,7 @@ namespace keyestudioDrive {
      * Stopp alle motorer.
      */
     //% block="stopp"
+    //% group="Kjøring"
     export function stopp(): void {
         mecanumRobotV2.state()
     }
