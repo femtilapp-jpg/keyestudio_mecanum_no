@@ -3,8 +3,7 @@
     "version": "0.1.1",
     "description": "Barnevennlige norske MakeCode blokker for Keyestudio 4WD Mecanum robot",
     "dependencies": {
-        "core": "*",
-        "microphone": "*"
+        "core": "*"
     },
     "files": [
         "core.ts",
