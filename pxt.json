@@ -5,8 +5,6 @@
     "dependencies": {
         "core": "*",
         "microphone": "*",
-        "pxt-mecanum-robot-V2": "github:keyestudio2019/mecanum_robot_v2",
-        "IrRemote": "github:mworkfun/pxt-IRremote"
     },
     "files": [
         "core.ts",
