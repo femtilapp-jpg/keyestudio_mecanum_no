@@ -10,6 +10,7 @@
         "core.ts",
         "drive.ts",
         "sensors.ts",
+        "ir.ts",
         "README.md"
     ],
     "public": true,
