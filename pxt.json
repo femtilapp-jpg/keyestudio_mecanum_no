@@ -10,13 +10,7 @@
     },
     "files": [
         "core.ts",
-        "drive.ts",
-        "ir.ts",
-        "sensors.ts",
-        "bluetooth.ts",
-        "lights.ts",
-        "autopilot.ts",
-        "advanced.ts"
+        "drive.ts"
     ],
     "public": true,
     "targetVersions": {
