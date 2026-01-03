@@ -56,7 +56,7 @@ namespace keyestudioPro {
      */
     //% block="kjør diagonalt %retning med fart %fart \\%"
     //% fart.min=0 fart.max=100 fart.defl=60
-    //% group="Mecanum"
+    //% group="Kjøring"
     export function diagonal(retning: DiagonalRetning, fart: number): void {
         diagonalKjor(retning, fart)
     }
@@ -67,7 +67,7 @@ namespace keyestudioPro {
     //% block="kjør diagonalt %retning med fart %fart \\% i %ms ms"
     //% fart.min=0 fart.max=100 fart.defl=60
     //% ms.min=10 ms.max=10000 ms.defl=500
-    //% group="Mecanum"
+    //% group="Kjøring"
     export function diagonalTid(retning: DiagonalRetning, fart: number, ms: number): void {
         diagonalKjor(retning, fart)
         basic.pause(ms)
