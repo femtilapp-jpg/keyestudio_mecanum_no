@@ -9,6 +9,7 @@
     "files": [
         "core.ts",
         "drive.ts",
+        "sensors.ts",
         "README.md"
     ],
     "public": true,
