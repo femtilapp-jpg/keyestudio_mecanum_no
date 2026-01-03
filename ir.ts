@@ -1,30 +1,18 @@
 namespace keyestudioPro {
+  let _irPin: DigitalPin = DigitalPin.P16
+  let _started = false
+  let _lastBtn: number = 0
 
-  let irPin: DigitalPin = DigitalPin.P16
-  let irLast = 0
-  let irReady = false
-
-  /**
-   * Velg hvilken pin IR-mottakeren står på.
-   */
-  //% block="IR pin %pin"
-  //% group="IR"
-  export function irSettPin(pin: DigitalPin): void {
-    irPin = pin
-    irReady = false
-  }
-
-  function ensureIr(): void {
-    if (irReady) return
-
-    IR.init(irPin)
-    irReady = true
+  function ensureStarted(): void {
+    if (_started) return
+    irReceiver.connectInfrared(_irPin)
+    _started = true
 
     control.inBackground(function () {
       while (true) {
-        const code = IR.getCode()
-        if (code != 0) {
-          irLast = code
+        const b = irReceiver.returnIrButton()
+        if (b != 0) {
+          _lastBtn = b
         }
         basic.pause(10)
       }
@@ -32,46 +20,57 @@ namespace keyestudioPro {
   }
 
   /**
-   * Start IR (må kjøres i 'Ved oppstart').
+   * Velg hvilken pin IR-mottakeren står på.
+   */
+  //% block="IR pin %pin"
+  //% group="IR"
+  export function irPin(pin: DigitalPin): void {
+    _irPin = pin
+    _started = false
+  }
+
+  /**
+   * Start IR (legg i Ved oppstart).
    */
   //% block="start IR"
   //% group="IR"
-  export function irStart(): void {
-    ensureIr()
+  export function startIR(): void {
+    ensureStarted()
   }
 
   /**
-   * Siste IR-kode (0 betyr ingen).
+   * Siste IR-knapp (tall). 0 betyr ingen.
    */
-  //% block="siste IR kode"
+  //% block="siste IR knapp"
   //% group="IR"
-  export function irSisteKode(): number {
-    ensureIr()
-    return irLast
+  export function sisteIRKnapp(): number {
+    ensureStarted()
+    return _lastBtn
   }
 
   /**
-   * Nullstill siste IR-kode.
+   * Nullstill siste IR-knapp.
    */
-  //% block="nullstill IR kode"
+  //% block="nullstill IR"
   //% group="IR"
-  export function irNullstill(): void {
-    irLast = 0
+  export function nullstillIR(): void {
+    _lastBtn = 0
   }
 
   /**
-   * Når IR-kode mottas.
+   * Når IR-knapp trykkes.
    */
-  //% block="når IR kode mottas"
+  //% block="når IR knapp trykkes"
   //% group="IR"
-  export function irNarKodeMottas(handler: () => void): void {
-    ensureIr()
+  export function narIRKnappTrykkes(handler: () => void): void {
+    ensureStarted()
 
     control.inBackground(function () {
       let lastSeen = 0
       while (true) {
-        if (irLast != 0 && irLast != lastSeen) {
-          lastSeen = irLast
+        const b = _lastBtn
+        if (b != 0 && b != lastSeen) {
+          lastSeen = b
           handler()
         }
         basic.pause(10)
@@ -80,12 +79,12 @@ namespace keyestudioPro {
   }
 
   /**
-   * Sjekk om siste IR-kode er lik en bestemt kode.
+   * IR knapp er lik %knapp
    */
-  //% block="IR kode er %kode"
+  //% block="IR knapp er %knapp"
   //% group="IR"
-  export function irErKode(kode: number): boolean {
-    ensureIr()
-    return irLast === kode
+  export function irKnappEr(knapp: number): boolean {
+    ensureStarted()
+    return _lastBtn === knapp
   }
 }
