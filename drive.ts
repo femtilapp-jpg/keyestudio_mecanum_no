@@ -1,35 +1,45 @@
 enum KjorModus {
-    //% block="↑ fram"
+    //% block="↑ Fremover"
     Fram,
-    //% block="↓ bak"
+    //% block="↓ Bakover"
     Bak,
 
-    //% block="← side venstre"
+    //% block="← Sidelengs venstre"
     SideVenstre,
-    //% block="→ side høyre"
+    //% block="→ Sidelengs høyre"
     SideHoyre,
 
-    //% block="↖ fram venstre"
+    //% block="↖ Frem mot venstre"
     FramVenstre,
-    //% block="↗ fram høyre"
+    //% block="↗ Frem mot høyre"
     FramHoyre,
-    //% block="↙ bak venstre"
+    //% block="↙ Bak mot venstre"
     BakVenstre,
-    //% block="↘ bak høyre"
+    //% block="↘ Bak mot høyre"
     BakHoyre,
 
-    //% block="↺ snu venstre"
+    //% block="↺ Snu til venstre"
     SnuVenstre,
-    //% block="↻ snu høyre"
+    //% block="↻ Snu til høyre"
     SnuHoyre,
 
-    //% block="⤺ bue venstre"
+    //% block="⤺ Kjør bue til venstre"
     BueVenstre,
-    //% block="⤻ bue høyre"
+    //% block="⤻ Kjør bue til høyre"
     BueHoyre
 }
 
 namespace keyestudioPro {
+
+    // ---------- Start-oppsett ----------
+    let wheelDiameterMm = 60
+
+    // Kalibreringer (finjuster disse på gulvet)
+    // cm per sekund når fart = 100
+    let cmPerSecAt100 = 25
+
+    // grader per sekund ved snu fart = 100
+    let degPerSecAt100 = 180
 
     function clampSpeed(pct: number): number {
         if (pct < 0) return 0
@@ -37,6 +47,44 @@ namespace keyestudioPro {
         return pct
     }
 
+    function clampPositive(n: number): number {
+        if (n < 0) return 0
+        return n
+    }
+
+    /**
+     * Sett hjuldiameter i mm (standard: 60 mm).
+     */
+    //% block="sett hjuldiameter %mm mm"
+    //% mm.min=10 mm.max=200 mm.defl=60
+    //% group="Start"
+    export function settHjuldiameter(mm: number): void {
+        wheelDiameterMm = clampPositive(mm)
+    }
+
+    /**
+     * Sett kalibrering: cm per sekund ved fart 100.
+     * Tips: kjør 100 cm på fart 100, mål tid, regn ut 100 / sekunder.
+     */
+    //% block="sett kalibrering %cmps cm per sekund ved fart 100"
+    //% cmps.min=1 cmps.max=200 cmps.defl=25
+    //% group="Start"
+    export function settKalibreringCmPerSek(cmps: number): void {
+        cmPerSecAt100 = clampPositive(cmps)
+    }
+
+    /**
+     * Sett kalibrering: grader per sekund ved snu fart 100.
+     * Tips: snu 360 grader på fart 100, mål tid, regn ut 360 / sekunder.
+     */
+    //% block="sett kalibrering %dps grader per sekund ved snu fart 100"
+    //% dps.min=10 dps.max=1000 dps.defl=180
+    //% group="Start"
+    export function settKalibreringGraderPerSek(dps: number): void {
+        degPerSecAt100 = clampPositive(dps)
+    }
+
+    // ---------- Interne motorfunksjoner ----------
     function motorsStop(): void {
         mecanumRobotV2.state()
     }
@@ -150,6 +198,8 @@ namespace keyestudioPro {
         }
     }
 
+    // ---------- Blokker ----------
+
     /**
      * Stopp alle motorer.
      */
@@ -180,5 +230,26 @@ namespace keyestudioPro {
         applyMode(modus, fart)
         basic.pause(ms)
         motorsStop()
+    }
+
+    // ---------- Små "debug/info" blokker (valgfritt) ----------
+    // Du kan la disse stå, eller fjerne dem senere.
+
+    //% block="hjuldiameter mm"
+    //% group="Avansert"
+    export function hjuldiameterMm(): number {
+        return wheelDiameterMm
+    }
+
+    //% block="kalibrering cm per sekund ved fart 100"
+    //% group="Avansert"
+    export function kalibreringCmPerSekAt100(): number {
+        return cmPerSecAt100
+    }
+
+    //% block="kalibrering grader per sekund ved snu fart 100"
+    //% group="Avansert"
+    export function kalibreringGraderPerSekAt100(): number {
+        return degPerSecAt100
     }
 }
